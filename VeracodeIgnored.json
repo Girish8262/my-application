@@ -1,0 +1,106 @@
+[
+  {
+    "CWEId": "259",
+    "FlawMatch": {
+      "ProcedureHash": "1923226897",
+      "PrototypeHash": "211846691",
+      "FlawHash": "1474608433",
+      "FlawHashCount": "1",
+      "FlawHashOrdinal": "1",
+      "CauseHash": "1206121074",
+      "CauseHashCount": "1",
+      "CauseHashOrdinal": "1",
+      "CauseHash2": "0",
+      "CauseHash2Ordinal": "0"
+    },
+    "Files": {
+      "SourceFile": {
+        "File": "greetUser.js",
+        "Line": "6",
+        "FunctionName": "!main",
+        "QualifiedFunctionName": "!main",
+        "FunctionPrototype": "!main() : void",
+        "Scope": "UNKNOWN",
+        "AbsoluteFilePath": "c:\\Users\\gbalasaheb\\Project\\my-application\\src\\greetUser.js"
+      }
+    }
+  },
+  {
+    "CWEId": "259",
+    "FlawMatch": {
+      "ProcedureHash": "2197156518",
+      "PrototypeHash": "592158301",
+      "FlawHash": "1414741260",
+      "FlawHashCount": "1",
+      "FlawHashOrdinal": "1",
+      "CauseHash": "170544213",
+      "CauseHashCount": "1",
+      "CauseHashOrdinal": "1",
+      "CauseHash2": "0",
+      "CauseHash2Ordinal": "0"
+    },
+    "Files": {
+      "SourceFile": {
+        "File": "greetUser.js",
+        "Line": "1",
+        "FunctionName": "greetUser",
+        "QualifiedFunctionName": "greetUser",
+        "FunctionPrototype": "greetUser(: any,  : any,  : any, ...) : any",
+        "Scope": "UNKNOWN",
+        "AbsoluteFilePath": "c:\\Users\\gbalasaheb\\Project\\my-application\\src\\greetUser.js"
+      }
+    }
+  },
+  {
+    "CWEId": "117",
+    "FlawMatch": {
+      "ProcedureHash": "1747928080",
+      "PrototypeHash": "1370482584",
+      "FlawHash": "2972751459",
+      "FlawHashCount": "1",
+      "FlawHashOrdinal": "1",
+      "CauseHash": "2357674720",
+      "CauseHashCount": "1",
+      "CauseHashOrdinal": "1",
+      "CauseHash2": "1522093433",
+      "CauseHash2Ordinal": "4"
+    },
+    "Files": {
+      "SourceFile": {
+        "File": "Home.js",
+        "Line": "80",
+        "FunctionName": "lambda_11",
+        "QualifiedFunctionName": "lambda_11",
+        "FunctionPrototype": "lambda_11(: any, ...) : any",
+        "Scope": "UNKNOWN",
+        "AbsoluteFilePath": "c:\\Users\\gbalasaheb\\Project\\my-application\\src\\Page\\Home.js"
+      }
+    }
+  },
+  {
+    "CWEId": "117",
+    "FlawMatch": {
+      "ProcedureHash": "1753873185",
+      "PrototypeHash": "518025371",
+      "FlawHash": "3473267603",
+      "FlawHashCount": "1",
+      "FlawHashOrdinal": "1",
+      "CauseHash": "547118760",
+      "CauseHashCount": "1",
+      "CauseHashOrdinal": "1",
+      "CauseHash2": "1522093433",
+      "CauseHash2Ordinal": "4"
+    },
+    "Files": {
+      "SourceFile": {
+        "File": "Home.js",
+        "Line": "50",
+        "FunctionName": "lambda_7",
+        "QualifiedFunctionName": "lambda_7",
+        "FunctionPrototype": "lambda_7(: any,  : any, ...) : any",
+        "Scope": "UNKNOWN",
+        "AbsoluteFilePath": "c:\\Users\\gbalasaheb\\Project\\my-application\\src\\Page\\Home.js"
+      }
+    }
+  }
+]

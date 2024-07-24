@@ -1,0 +1,8 @@
+.header {
+  border-bottom: 2px solid #ccc; 
+  padding: 5px;
+  top: 0;
+  width: 100%;
+  background-color: antiquewhite;
+  text-align: center;
+}
