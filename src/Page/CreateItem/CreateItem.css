@@ -1,0 +1,56 @@
+.create-container {
+    max-height: fit-content;
+    max-width: 1200px;
+    margin: 50px auto;
+    border: 1px solid #323232;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form input,
+.form textarea {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; 
+}
+
+.submit-button button:hover,
+.back-button button:hover {
+    opacity: 0.8; 
+}
+
+.icon-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-icon{
+    color: rgb(49, 94, 49);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    padding-bottom: 15px;
+    padding-left: 10px;
+}
+
+.submit-icon:hover{
+    color: green;
+}
+
+.back-icon {
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.back-icon:hover {
+    opacity: 0.8;
+    color: rgb(137, 48, 48)
+}

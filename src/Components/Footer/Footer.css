@@ -1,0 +1,13 @@
+.footer {
+      border-top: 2px solid #ccc;
+      padding: 5px;
+      color: white;
+      background-color: brown;
+      box-sizing: border-box; 
+      text-align: center; 
+      width: 100%; 
+      padding-right: 250px;
+      /* position: fixed; */
+      clear: both;
+      bottom: 0; 
+    }
