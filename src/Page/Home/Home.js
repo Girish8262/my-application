@@ -1,25 +1,26 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { IoIosAddCircle } from "react-icons/io";
-import { MdEditNote, MdDelete } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
-import { CircularProgress, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import './Home.css';
+import { CircularProgress, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Pagination, Typography } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { addAction, updateAction, removeAction } from '../../features/automationSlice/automationSlice';
+import styles from './Home.module.css';
+import { ACTION_MENU_ITEMS, ICON_BUTTONS, TITLE_HEADER, ITEM_TITLE, ITEM_LOCATION, ITEM_VALUE, DIALOG_BUTTONS, DIALOG_TITLES, ITEMS_PER_PAGE } from './Home.Constants';
 
 const Home = () => {
-  const [items, setItems] = useState([]);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-  const [formData, setFormData] = useState({ title: '', url: '' });
-  const [itemToDelete, setItemToDelete] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const popupRef = useRef(null);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.automation);
+  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
+  const [formData, setFormData] = React.useState({ action: '', dataItem: '', value: '' });
+  const [editingItemId, setEditingItemId] = React.useState(null);
+  const [itemToDelete, setItemToDelete] = React.useState(null);
+  const [loading] = React.useState(false);
+  const [viewItem, setViewItem] = React.useState(null);
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const popupRef = React.useRef(null);
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setIsPopupOpen(false);
@@ -32,29 +33,10 @@ const Home = () => {
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
     }
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isPopupOpen, isDeletePopupOpen]);
-
-  const fetchItems = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-      const data = await response.json();
-      const modifiedData = data.slice(0, 3).map(item => ({
-        id: item.id,
-        title: item.title,
-        url: `https://example.com/${item.id}`
-      }));
-      setItems(modifiedData);
-    } catch (error) {
-      console.error('Error fetching items:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -62,9 +44,28 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({ title: '', url: '' });
+    if (editingItemId) {
+      dispatch(updateAction({ ...formData, id: editingItemId }));
+      setEditingItemId(null);
+    } else {
+      dispatch(addAction({ ...formData, id: Date.now() }));
+    }
+    setFormData({ action: '', dataItem: '', value: '' });
     setIsPopupOpen(false);
+    setIsEditing(false);
+  };
+
+  const handleEditClick = (item) => {
+    setFormData({ action: item.action, dataItem: item.dataItem, value: item.value });
+    setEditingItemId(item.id);
+    setIsEditing(true);
+    setIsPopupOpen(true);
+  };
+
+  const handleViewClick = (item) => {
+    setViewItem(item);
+    setIsEditing(false);
+    setIsPopupOpen(true);
   };
 
   const handleDeleteClick = (id) => {
@@ -73,95 +74,120 @@ const Home = () => {
   };
 
   const confirmDelete = () => {
-    setItems(items.filter(item => item.id !== itemToDelete));
+    dispatch(removeAction(itemToDelete));
     setIsDeletePopupOpen(false);
     setItemToDelete(null);
   };
 
-  const handleEdit = (id) => { console.log('Edit item with ID:', id); };
-  const handleView = (url) => { window.open(url, '_blank'); };
-
-  const titleUrl = 'https://example.com/title-url';   // Dummy title URL
+  const sortedItems = [...items].sort((a, b) => a.id - b.id);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedItems = sortedItems.slice(startIndex, endIndex);
 
   return (
-    <div className="home-container">
-      <div className="title-header">
+    <div className={styles.homeContainer}>
+      <div className={styles.titleHeader}>
         <div>
-        <h2>Web Automa</h2>
-        <p className="title-url">{titleUrl}</p>
+          {TITLE_HEADER}
         </div>
-
-        <Link className='add-icon' to="/home/create">
-          <IconButton size="large">
-            <IoIosAddCircle style={{ color: 'rgb(6, 74, 130, 0.9)' }} />
-          </IconButton>
+        <Link className={styles.addIcon} to="/home/create">
+          {ICON_BUTTONS.ADD(() => {})}
         </Link>
       </div>
-
       {loading && <CircularProgress style={{ display: 'block', margin: '20px auto' }} />}
-
-      <ul className="item-list">
-        {items.map(item => (
-          <li key={item.id} className="item">
-            <div className="item-content">
-              <h3>{item.title}</h3>
-              <a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a>
+      <ul className={styles.itemList}>
+        {paginatedItems.map(item => (
+          <li key={item.id} className={styles.item}>
+            <div className={styles.itemContent}>
+              {ITEM_TITLE(item.action)}
+              {ITEM_LOCATION(item.dataItem)}
+              {(item.action === 'Input Field' || item.action === 'Set Dropdown') && ITEM_VALUE(item.value)}
             </div>
-            <div className="icon-group">
-              <IconButton onClick={() => handleView(item.url)}><FaEye style={{ color: 'rgb(6, 74, 130, 0.9)' }} /></IconButton>
-              <IconButton onClick={() => handleEdit(item.id)}><MdEditNote style={{ color: 'rgb(6, 74, 130, 0.9)' }} /></IconButton>
-              <IconButton onClick={() => handleDeleteClick(item.id)}><MdDelete style={{ color: 'rgb(6, 74, 130, 0.9)' }} /></IconButton>
+            <div className={styles.iconGroup}>
+              {ICON_BUTTONS.VIEW(() => handleViewClick(item))}
+              {ICON_BUTTONS.EDIT(() => handleEditClick(item))}
+              {ICON_BUTTONS.DELETE(() => handleDeleteClick(item.id))}
             </div>
           </li>
         ))}
       </ul>
-
-      <Dialog open={isPopupOpen} onClose={() => setIsPopupOpen(false)}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+        <Pagination
+          count={Math.ceil(items.length / ITEMS_PER_PAGE)}
+          page={currentPage}
+          onChange={(e, page) => setCurrentPage(page)}
+        />
+      </div>
+      <Dialog open={isPopupOpen} onClose={() => setIsPopupOpen(false)} ref={popupRef}>
+        <DialogTitle>{editingItemId ? DIALOG_TITLES.EDIT_ACTION : DIALOG_TITLES.CREATE_ACTION}</DialogTitle>
         <DialogContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} style={{ display: viewItem && !isEditing ? 'none' : 'block' }}>
             <TextField
               autoFocus
               margin="dense"
-              name="title"
-              label="Title"
+              name="action"
+              label="Action"
               type="text"
               fullWidth
               variant="standard"
-              value={formData.title}
+              select
+              value={formData.action}
               onChange={handleChange}
-              required
-            />
+              disabled={!isEditing}
+            >
+              {ACTION_MENU_ITEMS}
+            </TextField>
             <TextField
               margin="dense"
-              name="url"
-              label="URL"
-              type="url"
+              name="dataItem"
+              label="Enter location; eg:- #data-item"
+              type="text"
               fullWidth
               variant="standard"
-              value={formData.url}
+              value={formData.dataItem}
               onChange={handleChange}
               required
+              disabled={!isEditing}
             />
+            {(formData.action === 'Input Field' || formData.action === 'Set Dropdown') && (
+              <TextField
+                margin="dense"
+                name="value"
+                label="Enter New Value"
+                type="text"
+                fullWidth
+                variant="standard"
+                value={formData.value}
+                onChange={handleChange}
+                required
+                disabled={!isEditing}
+              />
+            )}
+            <DialogActions>
+              {DIALOG_BUTTONS.CANCEL(() => setIsPopupOpen(false))}
+              {DIALOG_BUTTONS.SUBMIT(() => handleSubmit())}
+              {editingItemId && DIALOG_BUTTONS.UPDATE(() => handleSubmit())}
+            </DialogActions>
           </form>
+          {viewItem && !isEditing && (
+            <div>
+              <Typography variant="body1"><strong>Action:</strong> {viewItem.action}</Typography>
+              <Typography variant="body1"><strong>Location:</strong> {viewItem.dataItem}</Typography>
+              {(viewItem.action === 'Input Field' || viewItem.action === 'Set Dropdown') && (
+                <Typography variant="body1"><strong>Value:</strong> {viewItem.value}</Typography>
+              )}
+            </div>
+          )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsPopupOpen(false)}>Cancel</Button>
-          <Button type="submit" onClick={handleSubmit}>Submit</Button>
-        </DialogActions>
       </Dialog>
-
       <Dialog open={isDeletePopupOpen} onClose={() => setIsDeletePopupOpen(false)}>
-        <DialogTitle>Confirm Deletion</DialogTitle>
-        <DialogContent>
-          <p>Are you sure you want to delete this?</p>
-        </DialogContent>
+        <DialogTitle>{DIALOG_TITLES.CONFIRM_DELETE}</DialogTitle>
         <DialogActions>
-          <Button onClick={confirmDelete} color="primary">Confirm</Button>
-          <Button onClick={() => setIsDeletePopupOpen(false)} color="secondary">Cancel</Button>
+          {DIALOG_BUTTONS.CANCEL(() => setIsDeletePopupOpen(false))}
+          {DIALOG_BUTTONS.DELETE(() => confirmDelete())}
         </DialogActions>
       </Dialog>
     </div>
   );
 };
-
 export default Home;

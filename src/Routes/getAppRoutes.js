@@ -2,7 +2,7 @@ import { Route } from 'react-router-dom';
 import Home from '../Page/Home/Home';
 import Main from '../Page/Main/Main';
 import About from '../Page/About/About';
-import CreateItem from '../Page/CreateItem/CreateItem';
+import CreateItem from '../Page/Home/CreateItem/CreateItem';
 
 const getAppRoutes = () => {
   return (

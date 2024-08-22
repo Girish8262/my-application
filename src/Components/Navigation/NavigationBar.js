@@ -2,33 +2,32 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faChartBar, faCube } from "@fortawesome/free-solid-svg-icons";
-import "./NavigationBar.css";
+import styles from "./NavigationBar.module.css";
 
 function NavigationBar() {
   return (
-    <nav className="global-navigation-bar">
+    <nav className={styles.globalNavigationBar}>
       <ul>
         <li>
-          <NavLink to="/" exact activeClassName="active">
+          <NavLink to="/" className={({ isActive }) => isActive ? styles.active : undefined} >
             <FontAwesomeIcon icon={faCube} />
-            <span className="nav-title">Main</span>
+            <span className={styles.navTitle}>Main</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Home" exact activeClassName="active">
+          <NavLink to="/Home" className={({ isActive }) => isActive ? styles.active : undefined} >
             <FontAwesomeIcon icon={faHome} />
-            <span className="nav-title">Home</span>
+            <span className={styles.navTitle}>Home</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/About" exact activeClassName="active">
+          <NavLink to="/About" className={({ isActive }) => isActive ? styles.active : undefined} >
             <FontAwesomeIcon icon={faChartBar} />
-            <span className="nav-title">About</span>
+            <span className={styles.navTitle}>About</span>
           </NavLink>
         </li>
       </ul>
     </nav>
   );
 }
-
 export default NavigationBar;

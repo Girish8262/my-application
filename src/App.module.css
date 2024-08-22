@@ -10,7 +10,7 @@
   border: 2px solid #ccc; 
 }
 
-.main-content {
+.mainContent {
   flex: 1; 
   overflow-y: auto;
 }
@@ -39,11 +39,11 @@ nav ul li a.active {
     flex-direction: column;
   }
 
-  .navigation-header {
+  .navigationHeader {
     justify-content: space-between;
   }
 
-  .main-content {
+  .mainContent {
     /* padding-top: 50px; */
   }
 }

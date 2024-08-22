@@ -1,9 +1,9 @@
-.create-container {
+.createContainer {
     max-height: fit-content;
     max-width: 1200px;
     margin: 50px auto;
-    border: 1px solid #323232;
-    border-radius: 8px;
+    /* border: 1px solid #323232;
+    border-radius: 8px; */
     padding: 10px;
 }
 
@@ -21,17 +21,17 @@
     width: 100%; 
 }
 
-.submit-button button:hover,
-.back-button button:hover {
+.submitButton button:hover,
+.backButton button:hover {
     opacity: 0.8; 
 }
 
-.icon-buttons {
+.iconButtons {
     display: flex;
     justify-content: space-between;
 }
 
-.submit-icon{
+.submitIcon {
     color: rgb(49, 94, 49);
     width: 24px;
     height: 24px;
@@ -41,16 +41,16 @@
     padding-left: 10px;
 }
 
-.submit-icon:hover{
+.submitIcon:hover {
     color: green;
 }
 
-.back-icon {
+.backIcon {
     padding-left: 5px;
     cursor: pointer;
 }
 
-.back-icon:hover {
+.backIcon:hover {
     opacity: 0.8;
-    color: rgb(137, 48, 48)
+    color: rgb(137, 48, 48);
 }
