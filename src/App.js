@@ -1,23 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes } from 'react-router-dom';
-import GlobalHeader from './Global Components/GlobalHeader';
-import GlobalFooter from './Global Components/GlobalFooter';
-import GlobalNavigationBar from './Global Components/GlobalNavigationBar';
-import getAppRoutes from './getAppRoutes';
-import './App.css';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
+import getAppRoutes from './Routes/getAppRoutes';
+import styles from './App.module.css'; // Import the CSS Module
+import NavigationBar from './Components/Navigation/NavigationBar';
 
 const App = () => {
   return (
     <Router>
-      <div className="app">
-        <div className="container">
-          <GlobalNavigationBar />
-          <main className="main-content">
-          <GlobalHeader />
+      <div className={styles.app}>
+        <div className={styles.container}>
+          <NavigationBar />
+          <main className={styles.mainContent}>
+            <Header />
             <Routes>
               {getAppRoutes()}
             </Routes>
-            <GlobalFooter />
+            <Footer />
           </main>
         </div>
       </div>

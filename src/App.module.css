@@ -1,6 +1,6 @@
 .app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh; 
 }
 
@@ -10,7 +10,7 @@
   border: 2px solid #ccc; 
 }
 
-.main-content {
+.mainContent {
   flex: 1; 
   overflow-y: auto;
 }
@@ -32,4 +32,18 @@ nav ul li {
 
 nav ul li a.active {
   background-color: #ccc; 
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .navigationHeader {
+    justify-content: space-between;
+  }
+
+  .mainContent {
+    /* padding-top: 50px; */
+  }
 }

@@ -1,0 +1,63 @@
+.homeContainer {
+  max-width: 1200px;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #444242;
+  border-radius: 8px;
+  height: 100%;
+}
+
+.titleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addIcon {
+  padding-right: 30px;
+}
+
+.itemList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item {
+  background-color: #efeeee;
+  padding: 10px;
+  border: 1px solid #323232;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconGroup {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.itemContent h3 {
+  margin: 0;
+}
+
+.itemContent a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.itemContent a:hover {
+  text-decoration: underline;
+}
+
+.spinner {
+  padding-left: 50%;
+}
+
+.homeContainer .titleHeader .titleUrl {
+  font-size: 0.9em;
+  color: rgb(17, 29, 155);
+  margin-top: 5px;
+}

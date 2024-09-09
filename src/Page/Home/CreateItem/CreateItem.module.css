@@ -1,0 +1,56 @@
+.createContainer {
+    max-height: fit-content;
+    max-width: 1200px;
+    margin: 50px auto;
+    /* border: 1px solid #323232;
+    border-radius: 8px; */
+    padding: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form input,
+.form textarea {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; 
+}
+
+.submitButton button:hover,
+.backButton button:hover {
+    opacity: 0.8; 
+}
+
+.iconButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submitIcon {
+    color: rgb(49, 94, 49);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    padding-bottom: 15px;
+    padding-left: 10px;
+}
+
+.submitIcon:hover {
+    color: green;
+}
+
+.backIcon {
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.backIcon:hover {
+    opacity: 0.8;
+    color: rgb(137, 48, 48);
+}
